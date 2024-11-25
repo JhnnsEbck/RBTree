@@ -1,3 +1,7 @@
+# Remove and recreate directory /out
+rm -rf ./out
+mkdir ./out
+
 # Compile the project
 ghc -i./src -outputdir ./out -o ./out/Main ./src/Main.hs
 
