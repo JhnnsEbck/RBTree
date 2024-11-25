@@ -5,6 +5,7 @@ import qualified Data.Text as T -- Data.Text = Bibliothek, die Textverarbeitung 
 import qualified Data.Text.IO as TIO -- Data.Text.IO = Bibliothek für lesen und schreiben von Text
 import Data.Char (isAlpha)
 import RBTree (RBTree(..), insert, inorder) -- importiert die Funktionen aus dem File RBTree.hs
+import Data.Time (getCurrentTime, diffUTCTime) -- importiert Funktionen für Zeitmessung 
 
 -- Datei-Handling und Tokenisierung
 tokenize :: T.Text -> [T.Text] -- Funktion tokenize bekommt einen Text und gibt eine Liste von Texten zurück
@@ -22,7 +23,8 @@ rbTreeSort = foldr insert Empty
 
 -- Main Funktion
 main :: IO ()
-main = do
+main = do 
+  start <- getCurrentTime -- Startzeit messen
   args <- getArgs
   case args of
     [filePath] -> do
@@ -31,5 +33,5 @@ main = do
           tree = rbTreeSort words -- sortierung über Funktion "buildTree"
           uniqueSortedWords = inorder tree -- traversiert den Baum und gibt die Wörter in sortierter Reihenfolge als Liste zurück
       TIO.writeFile "output.txt" (T.unlines uniqueSortedWords)
-      putStrLn "List of unique words in given text written to output.txt"
-    _ -> putStrLn "Usage: <program> <path_to_text_file>"
+      end <- getCurrentTime -- Endzeit messen
+      putStrLn $ "Execution time: " ++ show (diffUTCTime end start)

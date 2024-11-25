@@ -1,3 +1,5 @@
+Team members: Eiböck Johannes, Steinbrugger Gerald
+
 Make run.sh-File executable using 'chmod +x run.sh'
 run script using './run.sh'
 
