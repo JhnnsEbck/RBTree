@@ -24,8 +24,7 @@ rbTreeSort = foldr insert Empty
 -- Main Funktion
 main :: IO ()
 main = do
-  start <- getCurrentTime -- Ist start hier eine funktion oder variable? 
-  args <- getArgs 
+  args <- getArgs
   case args of
     [filePath] -> do
       content <- TIO.readFile filePath -- liest mit TIO.readFile den Inhalt von filePath (der mit getArgs aus dem Terminal übergeben wurde) in content ein
@@ -33,6 +32,5 @@ main = do
           tree = rbTreeSort words -- sortierung über Funktion "buildTree"
           uniqueSortedWords = inorder tree -- traversiert den Baum und gibt die Wörter in sortierter Reihenfolge als Liste zurück
       TIO.writeFile "output.txt" (T.unlines uniqueSortedWords)
-      end <- getCurrentTime
-      putStrLn $ "Execution time: " ++ show (diffUTCTime end start)
-   
+      putStrLn "List of unique words in given text written to output.txt"
+    _ -> putStrLn "Usage: <program> <path_to_text_file>"
